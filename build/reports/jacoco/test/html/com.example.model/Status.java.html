@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Status.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">json-assessment</a> &gt; <a href="index.source.html" class="el_package">com.example.model</a> &gt; <span class="el_source">Status.java</span></div><h1>Status.java</h1><pre class="source lang-java linenums">package com.example.model;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
+/**
+ * Created by Rudyard Moreno on 04/04/2017
+ * DISH NETWORK - Galvanize Training
+ * CNE-002 (Dish)
+ * Unit 4 - JSON Endpoints
+ * Model - Status Class
+ */
+public class Status {
+    //Properties
+    private String text;
+    private Date date;
+
+    //Getters
+<span class="fc" id="L20">    public String getText() { return  text; }</span>
+    @JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm&quot;,timezone=&quot;America/Denver&quot;)
+<span class="fc" id="L22">    public Date getDate() { return date; }</span>
+
+    //Setters
+<span class="fc" id="L25">    public void setText(String value) { text=value;}</span>
+<span class="fc" id="L26">    public void setDate(Date value) {date=value;}</span>
+
+    //Constructor
+<span class="fc" id="L29">    public Status() {</span>
+<span class="fc" id="L30">        setText(&quot;&quot;);</span>
+<span class="fc" id="L31">        setDate(new Date());</span>
+<span class="fc" id="L32">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.8.201612092310</span></div></body></html>
