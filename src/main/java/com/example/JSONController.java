@@ -7,46 +7,38 @@ package com.example;
  * JSON Controller
  */
 
-import com.example.model.*;
+import com.example.model.Activities;
+import com.example.model.Transformer;
+import com.example.model.Views;
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @RestController
 public class JSONController {
 
-    public List<Result> getResultList(Activities activities) throws Exception {
-        List<Result> resultList = new ArrayList<Result>();
+    private final Transformer transformer;
 
-        for (Activity activity : activities.getActivities()) {
-            Result result = new Result();
-
-            result.setUserId(activity.getUser().getId());
-            result.setUser(activity.getUser().getUsername());
-            result.setEmail(activity.getUser().getPrimaryEmail().getAddress());
-            result.setDate(activity.getStatus().getDate());
-            result.setStatusText(activity.getStatus().getText());
-
-            resultList.add(result);
-        }
-
-        return resultList;
+    public JSONController(Transformer transformer) {
+        this.transformer = transformer;
     }
 
     @PostMapping(value = "/activities/simplify", produces = "application/vnd.galvanize.detailed+json")
     @JsonView(Views.DetailView.class)
-    public List<Result> getActivitiesSimplifyDetailed(@RequestBody Activities activities) throws Exception {
-        return getResultList(activities);
+    public MappingJacksonValue getActivitiesSimplifyDetailed(@RequestBody Activities activities) throws Exception {
+        MappingJacksonValue result = transformer.getResultList(activities);
+        result.setSerializationView(Views.DetailView.class);
+        return result;
     }
 
     @PostMapping(value = "/activities/simplify", produces = "application/vnd.galvanize.compact+json")
     @JsonView(Views.ListView.class)
-    public List<Result> getActivitiesSimplifyCompact(@RequestBody Activities activities) throws Exception {
-        return getResultList(activities);
+    public MappingJacksonValue getActivitiesSimplifyCompact(@RequestBody Activities activities) throws Exception {
+        MappingJacksonValue result = transformer.getResultList(activities);
+        result.setSerializationView(Views.ListView.class);
+        return result;
     }
 }
